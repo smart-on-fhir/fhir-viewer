@@ -178,7 +178,7 @@
      */
     function createEditor(container, xhr, cb) {
         var lang = getResponseLanguage(xhr);
-        require.config({ paths: { 'vs': 'node_modules/monaco-editor/min/vs' }});
+        require.config({ paths: { 'vs': 'monaco-editor/min/vs' }});
         require(['vs/editor/editor.main'], function() {
             var model = monaco.editor.createModel(xhr.responseText, lang);
             var editor = monaco.editor.create(container, {

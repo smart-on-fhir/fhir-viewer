@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^3.19.0",
-    "http-server": "^0.10.0",
-    "monaco-editor": "^0.8.3"
+    "http-server": "^0.10.0"
   }
 }
