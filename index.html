@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="icon.png" type="image/png" />
+        <title>FHIR Viewer</title>
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #container {
+            width:100%;
+            height:100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .message {
+            background: #FFC;
+            border: 1px solid #CC9;
+            padding: 1em 2em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 3px;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        </style>
+    </head>
+    <body>
+        <div id="container"></div>
+        <script src="jquery.min.js"></script>
+        <script src="node_modules/monaco-editor/min/vs/loader.js"></script>
+        <script src="known-servers.js"></script>
+        <script src="lib.js"></script>
+        <script>init("container")</script>
+    </body>
+</html>

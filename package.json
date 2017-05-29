@@ -1,0 +1,19 @@
+{
+  "name": "fhir-viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node node_modules/http-server/bin/http-server -c-1",
+    "deploy-gh": "git subtree push --prefix public origin gh-pages"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^3.19.0",
+    "http-server": "^0.10.0",
+    "monaco-editor": "^0.8.3"
+  }
+}
