@@ -42,4 +42,4 @@ cd fhir-viewer
 npm i
 npm start
 ```
-Then open http://127.0.0.1:8080/?url={MY_URL} in your browser.
+Then open http://127.0.0.1:8080/?url=http%3A%2F%2Ffhirtest.uhn.ca%2FbaseDstu3%2Fmetadata in your browser.
