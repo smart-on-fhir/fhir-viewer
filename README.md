@@ -23,6 +23,23 @@ their specific response headers that will typically force the browser to downloa
 
 ## Usage
 
-You can use the online version or host your own. The only thing that you need to do is to pass a `url` parameter in the query string that would be the URL of the resource you want to view. The app will download it and render it into read-only editor.
+You can use the online version or host your own. The only thing that you need to do is to pass a `url` parameter in the query string that would be the URL of the resource you want to view. The app will download it and render it into read-only editor. The `url` parameter **MUST BE URL ENCODED!**
 
-To be continued...
+- to specify XML or JSON format add `_format=json` or `_format=xml` to the original `url` parameter and url-encode the whole thing.
+- to use the dark theme add `dark` url parameter with any value (or even without a value)
+
+## Adding a server
+For security reasons this app will only load resources from white-listed servers. If you want to view something that is not supported, you can add it to the list at `known-servers.js` and make a pull request.
+
+## Contribution
+This app is designed to be as simple as possible. If you want to make changes please keep that in mind and also use only ES5 because there is no builder or transpiler involved.
+
+## installation
+If you want to use it locally simply do:
+```sh
+git clone https://github.com/smart-on-fhir/fhir-viewer.git
+cd fhir-viewer
+npm i
+npm start
+```
+Then open http://127.0.0.1:8080/?url={MY_URL} in your browser.

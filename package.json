@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/http-server/bin/http-server -c-1",
-    "deploy-gh": "git subtree push --prefix public origin gh-pages"
+    "start": "node node_modules/http-server/bin/http-server -c-1"
   },
   "keywords": [],
   "author": "",
