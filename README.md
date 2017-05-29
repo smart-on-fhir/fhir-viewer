@@ -29,7 +29,7 @@ You can use the online version or host your own. The only thing that you need to
 - to use the dark theme add `dark` url parameter with any value (or even without a value)
 
 ## Adding a server
-For security reasons this app will only load resources from white-listed servers. If you want to view something that is not supported, you can add it to the list at `known-servers.js` and make a pull request.
+For security reasons this app will only load resources from white-listed servers. If you want to view something that is not supported, you can add it to the list at [known-servers.js](https://github.com/smart-on-fhir/fhir-viewer/blob/master/known-servers.js) and make a pull request.
 
 ## Contribution
 This app is designed to be as simple as possible. If you want to make changes please keep that in mind and also use only ES5 because there is no builder or transpiler involved.
