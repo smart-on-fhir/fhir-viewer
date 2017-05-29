@@ -108,9 +108,10 @@
     function createReferenceProvider(lang) {
         return {
             provideLinks: function(model) {
-                var re = String(lang == "json" ? RE_JSON_REFERENCE : RE_XML_REFERENCE);
-                re = re.substring(1, re.length - 1); // Remove the regex slashes
-                return model.findMatches(re, false, true, true, false, true).map(function(res) {
+                var re = lang == "json" ? RE_JSON_REFERENCE : RE_XML_REFERENCE;
+                var strRe = String(re);
+                strRe = strRe.substring(1, strRe.length - 1); // Remove the regex slashes
+                return model.findMatches(strRe, false, true, true, false, true).map(function(res) {
                     var url = getBaseURL() + "/" + res.matches[1];
                     if (lang == "json") {
                         url += "?_format=json";
@@ -118,12 +119,16 @@
                     else if (lang == "xml") {
                         url += "?_format=xml";
                     }
+
+                    var lineText = model.getValueInRange(res.range);
+                    var match = lineText.match(re);
+
                     return {
                         range: {
                             startLineNumber: res.range.startLineNumber,
                             endLineNumber  : res.range.endLineNumber,
-                            endColumn      : res.range.endColumn - 1,
-                            startColumn    : res.range.endColumn - res.matches[1].length - 1
+                            endColumn      : match[0].indexOf(match[1]) + match[1].length + 1,
+                            startColumn    : match[0].indexOf(match[1]) + 1
                         },
                         url: location.origin + location.pathname + "?url=" + encodeURIComponent(url)
                     };
