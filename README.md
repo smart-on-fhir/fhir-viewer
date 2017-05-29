@@ -14,6 +14,12 @@ their specific response headers that will typically force the browser to downloa
     - Great (size-independent) performance
     - Color themes support
     - Custom extensions to turn FHIR references into links and even preview them on hover
+    
+## Examples
+- Big response: <a target="_blank" href="http://docs.smarthealthit.org/fhir-viewer/?url=http%3A%2F%2Ffhirtest.uhn.ca%2FbaseDstu3%2Fmetadata">DSTU3 Sandbox conformance statement</a>
+- <a target="_blank" href="http://docs.smarthealthit.org/fhir-viewer/?url=https%3A%2F%2Fsb-fhir-stu3.smarthealthit.org%2Fsmartstu3%2Fopen%2FEncounter%3Fpatient%3Dsmart-1291938">Patient encounters with references preview</a>
+- <a target="_blank" href="http://docs.smarthealthit.org/fhir-viewer/?url=https%3A%2F%2Fsb-fhir-stu3.smarthealthit.org%2Fsmartstu3%2Fopen%2FEncounter%3Fpatient%3Dsmart-1291938&dark">Patient encounters with references preview (dark theme)</a>
+- <a target="_blank" href="http://docs.smarthealthit.org/fhir-viewer/?url=https%3A%2F%2Fsb-fhir-stu3.smarthealthit.org%2Fsmartstu3%2Fopen%2FEncounter%3Fpatient%3Dsmart-1291938%26_format%3Dxml&dark">Patient encounters with references preview (dark theme and XML format)</a>
 
 ## Usage
 
