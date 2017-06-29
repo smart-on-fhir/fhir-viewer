@@ -16,6 +16,8 @@ window.KNOWN_SERVERS = [
     "http://fhirtest.uhn.ca/baseDstu3",
     "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open",
     "http://sb-fhir-stu3.smarthealthit.org/smartstu3/open",
+    "https://sb-mock-fhir-stu3.smarthealthit.org/smartstu3/data",
+    "http://sb-mock-fhir-stu3.smarthealthit.org/smartstu3/data",
     "http://34.195.196.20:9074/smartstu3",
     "http://52.90.126.238:8080/fhir/baseDstu3"
 ];
