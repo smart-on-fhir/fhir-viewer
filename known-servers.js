@@ -12,6 +12,8 @@
  */
 window.KNOWN_SERVERS = [
     "https://sb-fhir-dstu2.smarthealthit.org/api/smartdstu2/open",
+    "https://sb-mock-fhir-dstu2.smarthealthit.org/smartdstu2/data",
+    "http://sb-mock-fhir-dstu2.smarthealthit.org/smartdstu2/data",
     "https://stub-dstu2.smarthealthit.org/api/fhir",
     "http://fhirtest.uhn.ca/baseDstu3",
     "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open",
