@@ -6,37 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="icon.png" type="image/png" />
         <title>FHIR Viewer</title>
-        <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        #container {
-            width:100%;
-            height:100%;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-        .message {
-            background: #FFC;
-            border: 1px solid #CC9;
-            padding: 1em 2em;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border-radius: 3px;
-            -webkit-transform: translate(-50%, -50%);
-            -moz-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-        </style>
+        <link href="style.css" rel="stylesheet"/>
     </head>
     <body>
+        <form id="form" action="/index.html">
+            <input type="hidden" name="dark"/>
+            <div class="input-wrap">
+                <input type="text" name="url" placeholder="FHIR URL"/>
+            </div>
+        </form>
+        <button class="btn" type="submit">Load</button>
         <div id="container"></div>
         <script src="jquery.min.js"></script>
         <script src="monaco-editor/min/vs/loader.js"></script>

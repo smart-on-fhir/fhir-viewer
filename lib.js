@@ -17,8 +17,22 @@
         var url = "";
         if (params.url) {
             KNOWN_SERVERS.some(function(base) {
-                if (params.url.indexOf(base) === 0) {
-                    url = params.url.substring(0, base.length);
+                var index, length;
+
+                if (base instanceof RegExp) {
+                    var match = params.url.match(base);
+                    if (match && match[0]) {
+                        index = match.index;
+                        length = match[0].length;
+                    }
+                }
+                else {
+                    index = params.url.indexOf(base);
+                    length = base.length;
+                }
+
+                if (index === 0 && length) {
+                    url = params.url.substring(0, length);
                     return true;
                 }
             });
@@ -130,7 +144,8 @@
                             endColumn      : match[0].indexOf(match[1]) + match[1].length + 1,
                             startColumn    : match[0].indexOf(match[1]) + 1
                         },
-                        url: location.origin + location.pathname + "?url=" + encodeURIComponent(url)
+                        url: location.origin + location.pathname + "?url=" +
+                        encodeURI(encodeURIComponent(url)) + (params.dark ? "&dark=1" : "")
                     };
                 })
             },
@@ -228,7 +243,13 @@
     function init(containerID) {
         var container = document.getElementById(containerID);
         var message = $('<div class="message"/>').appendTo(container);
+
+        $("body").toggleClass("dark", !!params.dark);
+        $("[name=dark]").prop("disabled", !params.dark);
+
         if (params.url) {
+            $(".input-wrap input").val(params.url);
+
             if (!getBaseURL() && !params.url.match(/^https?:\/\/(localhost|127.0.0.1)/)) {
                 message.text('Unknown URL origin. Consider adding your base URL to the known-servers.js file.');
                 return;
@@ -242,7 +263,17 @@
                         createEditor(container, xhr, function() { message.remove(); });
                     }
                     else {
-                        message.text(xhr.responseText);
+                        var msg = "";
+                        if (xhr.status) {
+                            msg += xhr.status + " ";
+                        }
+                        msg += xhr.statusText || "Failed to load URL!"
+
+                        if (msg == "error") {
+                            msg = "Failed to load URL!";
+                        }
+                        message.text(msg);
+                        // message.text(xhr.responseText || "Failed to load URL!");
                     }
                 });
             }

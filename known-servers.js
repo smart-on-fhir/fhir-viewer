@@ -11,21 +11,11 @@
  * your base URL to this array.
  */
 window.KNOWN_SERVERS = [
-    "https://sb-fhir-dstu2.smarthealthit.org/api/smartdstu2/open",
-    "https://sb-mock-fhir-dstu2.smarthealthit.org/mock-api/smartdstu2/data",
-    "http://sb-mock-fhir-dstu2.smarthealthit.org/mock-api/smartdstu2/data",
-    "https://stub-dstu2.smarthealthit.org/api/fhir",
+    /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/open/,
+    /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/data/,
+    /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/fhir/,
+    /https?\:\/\/smart-launcher(-staging)?\.herokuapp\.com\/.*?\/fhir/,
     "http://fhirtest.uhn.ca/baseDstu3",
-    "https://sb-fhir-stu3.smarthealthit.org/smartstu3/open",
-    "http://sb-fhir-stu3.smarthealthit.org/smartstu3/open",
-    "https://sb-mock-fhir-stu3.smarthealthit.org/smartstu3/data",
-    "http://sb-mock-fhir-stu3.smarthealthit.org/smartstu3/data",
     "http://34.195.196.20:9074/smartstu3",
-    "http://52.90.126.238:8080/fhir/baseDstu3",
-    "http://smart-launcher-staging.herokuapp.com",
-    "https://smart-launcher-staging.herokuapp.com",
-    "http://smart-launcher.herokuapp.com",
-    "https://smart-launcher.herokuapp.com",
-    "http://launch.smarthealthit.org",
-    "https://launch.smarthealthit.org"
+    "http://52.90.126.238:8080/fhir/baseDstu3"
 ];

@@ -1,0 +1,171 @@
+body {
+    margin     : 0;
+    padding    : 0;
+    overflow   : hidden;
+    background : #EEE;
+    font-family: sans-serif;
+    font-size  : 14px;
+    color      : #444;
+}
+
+#container {
+    position     : fixed;
+    top          : 32px;
+    right        : 3px;
+    bottom       : 3px;
+    left         : 3px;
+    border       : 1px solid #AAA;
+    border-radius: 3px;
+    overflow     : hidden;
+}
+
+.input-wrap {
+    position     : absolute;
+    top          : 3px;
+    left         : 70px;
+    right        : 100px;
+    height       : 26px;
+    border-radius: 3px 0 0 3px;
+}
+
+.input-wrap:before {
+    content    : "FHIR Url";
+    position   : absolute;
+    left       : -65px;
+    top        : 5px;
+    font-weight: bold;
+}
+
+.input-wrap input {
+    display      : block;
+    width        : 100%;
+    border       : 1px solid #AAA;
+    border-radius: 3px 0 0 3px;
+    box-sizing   : border-box;
+    margin       : 0;
+    height       : 26px;
+    font         : inherit;
+    outline      : none;
+    padding      : 0 10px;
+    z-index      : 1;
+    position     : relative;
+}
+
+.input-wrap input:focus {
+    z-index     : 2;
+    border-color: rgb(0, 195, 255);
+}
+
+.btn {
+    position     : absolute;
+    top          : 3px;
+    right        : 3px;
+    width        : 96px;
+    height       : 26px;
+    box-sizing   : border-box;
+    border-radius: 0 3px 3px 0;
+    border       : 1px solid rgba(0, 0, 0, 0.3);
+    background   : #EEE linear-gradient(#EEE, #DDD);
+    font         : inherit;
+    text-shadow  : 0 1px 0 #FFF;
+    outline      : none;
+    cursor       : pointer;
+    box-shadow   : 0 1px 0 0 #FFF inset;
+}
+
+.btn:hover {
+    background-image: linear-gradient(#FFF, #EEE);
+}
+
+.btn:active {
+    background-image: linear-gradient(#CCC, #DDD);
+    box-shadow      : 0 1px 1px 0 #999 inset;
+}
+
+.btn:focus {
+    border-color: rgb(0, 195, 255);
+}
+
+.btn:after {
+    content            : "";
+    display            : inline-block;
+    margin-left        : 1ch;
+    width              : 0;
+    height             : 0;
+    border-width       : 5px 0 5px 5px;
+    border-style       : inset inset inset solid;
+    border-top-color   : transparent;
+    border-bottom-color: transparent;
+}
+
+.message {
+    background       : #FFC;
+    border           : 1px solid #CC9;
+    padding          : 1em 2em;
+    position         : absolute;
+    top              : 50%;
+    left             : 50%;
+    border-radius    : 3px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform   : translate(-50%, -50%);
+    -ms-transform    : translate(-50%, -50%);
+    transform        : translate(-50%, -50%);
+}
+
+/* Starting the dark theme -------------------------------------------------- */
+
+body.dark {
+    background: #555;
+    color     : #AAA;
+}
+
+body.dark .message {
+    background  : rgb(182, 118, 0);
+    border-color: orange;
+    color       : white;
+    text-shadow : 0px 1px 0px rgba(0, 0, 0, 0.3); 
+}
+
+body.dark .input-wrap {
+    box-shadow: 0 0 0 1px #333;
+}
+
+body.dark .input-wrap:before {
+    text-shadow: 0 0 1px #000;
+}
+
+body.dark #container {
+    border-color: #777;
+}
+
+body.dark .input-wrap input {
+    background  : #2e2e2e;
+    border-color: #777;
+    color       : #CCC;
+}
+
+body.dark .input-wrap input:focus {
+    box-shadow: 0px 0px 0 1px orange;
+}
+
+body.dark .btn {
+    background  : #333 linear-gradient(#555, #333);
+    border-color: #777;
+    text-shadow : 0 0 1px #000;
+    color       : #CCC;
+    box-shadow  : 0px 0px 0 1px #333;
+}
+
+body.dark .btn:hover {
+    background-image: linear-gradient(#666, #444);
+}
+
+body.dark .btn:active {
+    background-image: linear-gradient(#111, #333);
+    box-shadow      : 0px 0px 0 1px #000, 0 1px 1px 0 #000 inset;
+    border-color    : #000;
+}
+
+body.dark .btn:focus {
+    box-shadow: 0px 0px 0 1px orange;
+}
