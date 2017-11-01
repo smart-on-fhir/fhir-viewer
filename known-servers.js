@@ -21,5 +21,11 @@ window.KNOWN_SERVERS = [
     "https://sb-mock-fhir-stu3.smarthealthit.org/smartstu3/data",
     "http://sb-mock-fhir-stu3.smarthealthit.org/smartstu3/data",
     "http://34.195.196.20:9074/smartstu3",
-    "http://52.90.126.238:8080/fhir/baseDstu3"
+    "http://52.90.126.238:8080/fhir/baseDstu3",
+    "http://smart-launcher-staging.herokuapp.com",
+    "https://smart-launcher-staging.herokuapp.com",
+    "http://smart-launcher.herokuapp.com",
+    "https://smart-launcher.herokuapp.com",
+    "http://launch.smarthealthit.org",
+    "https://launch.smarthealthit.org"
 ];
