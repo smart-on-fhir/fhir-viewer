@@ -10,7 +10,7 @@ body {
 
 #container {
     position     : fixed;
-    top          : 32px;
+    top          : 31px;
     right        : 3px;
     bottom       : 3px;
     left         : 3px;
@@ -32,7 +32,7 @@ body {
     content    : "FHIR Url";
     position   : absolute;
     left       : -65px;
-    top        : 5px;
+    top        : 7px;
     font-weight: bold;
 }
 
@@ -60,7 +60,7 @@ body {
     position     : absolute;
     top          : 3px;
     right        : 3px;
-    width        : 96px;
+    width        : 98px;
     height       : 26px;
     box-sizing   : border-box;
     border-radius: 0 3px 3px 0;
