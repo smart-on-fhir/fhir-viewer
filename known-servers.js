@@ -11,6 +11,7 @@
  * your base URL to this array.
  */
 window.KNOWN_SERVERS = [
+    /https?\:\/\/r(3|2)(-staging)?\.smarthealthit\.org/,
     /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/open/,
     /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/data/,
     /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/fhir/,
