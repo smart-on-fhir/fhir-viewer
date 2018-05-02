@@ -250,7 +250,7 @@
         if (params.url) {
             $(".input-wrap input").val(params.url);
 
-            if (!getBaseURL() && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0)/)) {
+            if (!getBaseURL() && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
                 message.text('Unknown URL origin. Consider adding your base URL to the known-servers.js file.');
                 return;
             }
