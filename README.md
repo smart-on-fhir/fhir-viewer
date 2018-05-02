@@ -43,3 +43,9 @@ npm i
 npm start
 ```
 Then open http://127.0.0.1:8080/?url=http%3A%2F%2Ffhirtest.uhn.ca%2FbaseDstu3%2Fmetadata in your browser.
+
+## Installation from Docker Hub
+This will start the viewer and make it available on http://localhost:9090/
+```
+docker run -p 9090:80 vladignatov/fhir-viewer:latest
+```

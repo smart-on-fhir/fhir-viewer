@@ -1,16 +1,16 @@
 {
   "name": "fhir-viewer",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/http-server/bin/http-server -c-1"
+    "start": "http-server -c-1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["FHIR", "SMART", "viewer", "explorer", "browser", "monaco", "json", "xml"],
+  "author": "Vladimir Ignatov",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "eslint": "^3.19.0",
     "http-server": "^0.10.0"
   }
