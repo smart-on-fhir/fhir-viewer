@@ -7,7 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-server -c-1"
   },
-  "keywords": ["FHIR", "SMART", "viewer", "explorer", "browser", "monaco", "json", "xml"],
+  "keywords": [
+    "FHIR",
+    "SMART",
+    "viewer",
+    "explorer",
+    "browser",
+    "monaco",
+    "json",
+    "xml"
+  ],
   "author": "Vladimir Ignatov",
   "license": "ISC",
   "devDependencies": {
