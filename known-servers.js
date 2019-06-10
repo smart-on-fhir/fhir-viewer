@@ -11,11 +11,11 @@
  * your base URL to this array.
  */
 window.KNOWN_SERVERS = [
-    /https?\:\/\/127\.0\.0\.1\:\d+\/v\/r(2|3)\/fhir\//,
-    /https?\:\/\/localhost\:\d+\/v\/r(2|3)\/fhir\//,
-    /https?\:\/\/127\.0\.0\.1\:\d+\/baseDstu(2|3)\//,
-    /https?\:\/\/localhost\:\d+\/baseDstu(2|3)\//,
-    /https?\:\/\/r(3|2)(-staging)?\.smarthealthit\.org/,
+    /https?\:\/\/127\.0\.0\.1\:\d+\/v\/r(2|3|4)\/fhir\//,
+    /https?\:\/\/localhost\:\d+\/v\/r(2|3|4)\/fhir\//,
+    /https?\:\/\/127\.0\.0\.1\:\d+\/baseDstu(2|3|4)\//,
+    /https?\:\/\/localhost\:\d+\/baseDstu(2|3|4)\//,
+    /https?\:\/\/r(4|3|2)(-staging)?\.smarthealthit\.org/,
     /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/open/,
     /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/data/,
     /https?\:\/\/.*?\.smarthealthit\.org\/.*?\/fhir/,
