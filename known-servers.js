@@ -25,5 +25,6 @@ window.KNOWN_SERVERS = [
     "http://fhirtest.uhn.ca/baseDstu3",
     "http://34.195.196.20:9074/smartstu3",
     "http://52.90.126.238:8080/fhir/baseDstu3",
+    "https://ncppixarfhir.azurewebsites.net",
     /https?\:\/\/api.logicahealth.org\/.+?\/data\//
 ];
