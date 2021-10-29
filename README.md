@@ -29,7 +29,21 @@ You can use the online version or host your own. The only thing that you need to
 - to use the dark theme add `dark` url parameter with any value (or even without a value)
 
 ## Adding a server
-For security reasons this app will only load resources from white-listed servers. If you want to view something that is not supported, you can add it to the list at [known-servers.js](https://github.com/smart-on-fhir/fhir-viewer/blob/master/known-servers.js) and make a pull request.
+For security reasons this app will only load resources from allowed servers. The allow list is found in the file known-servers.js. Each known server entry is an object with two properties:
+ - `server.url`     - The base URL of the FHIR API server to use.
+ - `server.headers` - Optional headers (in key/value format) to send to the FHIR server. Please note that these are sent to the client browser in plain text, you should NOT place secret values here.
+
+Here is an example server entry with headers:
+```js
+    {
+        url: "https://fhirserver.example.com/",
+        headers: {
+            "Authorization": "Bearer my-token"
+        }
+    }
+```
+
+## 
 
 ## Contribution
 This app is designed to be as simple as possible. If you want to make changes please keep that in mind and also use only ES5 because there is no builder or transpiler involved.
