@@ -16,8 +16,9 @@
     function getServer() {
         var url = "";
         var server = {};
+        var found = false;
         if (params.url) {
-            KNOWN_SERVERS.some(function(base) {
+            found = KNOWN_SERVERS.some(function(base) {
                 var index, length;
 
                 if (base.url instanceof RegExp) {
@@ -39,7 +40,9 @@
                 }
             });
         }
-        server.url = url.replace(/\/$/, ""); 
+        if (found) {
+            server.url = url.replace(/\/$/, ""); 
+        }
         return server;
     }
 
@@ -260,7 +263,7 @@
         if (params.url) {
             $(".input-wrap input").val(params.url);
 
-            if (!getServer() && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
+            if ($.isEmptyObject(getServer()) && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
                 message.text('Unknown URL origin. Consider adding your base URL to the known-servers.js file.');
                 return;
             }
