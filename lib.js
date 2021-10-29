@@ -10,39 +10,6 @@
     /**
      * If the app was loaded with an "url" query parameter this function will
      * test if it begins with any of the urls defined in KNOWN_SERVERS. The
-     * first match found is returned. Otherwise an empty string is returned.
-     * @returns {String} Might be empty!
-     */
-    function getBaseURL() {
-        var url = "";
-        if (params.url) {
-            KNOWN_SERVERS.some(function(base) {
-                var index, length;
-
-                if (base.url instanceof RegExp) {
-                    var match = params.url.match(base.url);
-                    if (match && match[0]) {
-                        index = match.index;
-                        length = match[0].length;
-                    }
-                }
-                else {
-                    index = params.url.indexOf(base.url);
-                    length = base.url.length;
-                }
-
-                if (index === 0 && length) {
-                    url = params.url.substring(0, length);
-                    return true;
-                }
-            });
-        }
-        return url.replace(/\/$/, "");
-    }
-
-    /**
-     * If the app was loaded with an "url" query parameter this function will
-     * test if it begins with any of the urls defined in KNOWN_SERVERS. The
      * first match found is returned. Otherwise an empty Object is returned.
      * @returns {Object} Might be empty!
      */
@@ -293,7 +260,7 @@
         if (params.url) {
             $(".input-wrap input").val(params.url);
 
-            if (!getBaseURL() && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
+            if (!getServer() && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
                 message.text('Unknown URL origin. Consider adding your base URL to the known-servers.js file.');
                 return;
             }
