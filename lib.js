@@ -10,34 +10,40 @@
     /**
      * If the app was loaded with an "url" query parameter this function will
      * test if it begins with any of the urls defined in KNOWN_SERVERS. The
-     * first match found is returned. Otherwise an empty string is returned.
-     * @returns {String} Might be empty!
+     * first match found is returned. Otherwise an empty Object is returned.
+     * @returns {Object} Might be empty!
      */
-    function getBaseURL() {
+    function getServer() {
         var url = "";
+        var server = {};
+        var found = false;
         if (params.url) {
-            KNOWN_SERVERS.some(function(base) {
+            found = KNOWN_SERVERS.some(function(base) {
                 var index, length;
 
-                if (base instanceof RegExp) {
-                    var match = params.url.match(base);
+                if (base.url instanceof RegExp) {
+                    var match = params.url.match(base.url);
                     if (match && match[0]) {
                         index = match.index;
                         length = match[0].length;
                     }
                 }
                 else {
-                    index = params.url.indexOf(base);
-                    length = base.length;
+                    index = params.url.indexOf(base.url);
+                    length = base.url.length;
                 }
 
                 if (index === 0 && length) {
                     url = params.url.substring(0, length);
+                    server = base;
                     return true;
                 }
             });
         }
-        return url.replace(/\/$/, "");
+        if (found) {
+            server.url = url.replace(/\/$/, ""); 
+        }
+        return server;
     }
 
     /**
@@ -77,7 +83,11 @@
      * @param {String} url
      * @returns {Promise<jQuery.jqXHR>}
      */
-    function fetchURL(url) {
+    function fetchURL(server, url) {
+        var headers = {};
+        if (server.headers) {
+            headers = server.headers;
+        }        
         return $.ajax({
             url  : url,
             converters: {
@@ -85,7 +95,8 @@
                 "text html": true,
                 "text json": String,
                 "text xml" : String
-            }
+            },
+            headers: headers
         });
     }
 
@@ -126,7 +137,8 @@
                 var strRe = String(re);
                 strRe = strRe.substring(1, strRe.length - 1); // Remove the regex slashes
                 return model.findMatches(strRe, false, true, true, false, true).map(function(res) {
-                    var url = getBaseURL() + "/" + res.matches[1];
+                    var server = getServer();
+                    var url = server.url + "/" + res.matches[1];
                     if (lang == "json") {
                         url += "?_format=json";
                     }
@@ -164,14 +176,15 @@
                     return null;
                 }
 
-                var url = getBaseURL() + "/" + match[1];
+                var server = getServer();
+                var url = server.url + "/" + match[1];
                 if (lang == "json") {
                     url += "?_format=json";
                 }
                 else if (lang == "xml") {
                     url += "?_format=xml";
                 }
-                return fetchURL(url)
+                return fetchURL(server, url)
                 .then(function(data, textStatus, xhr) {
                     var _lang = getResponseLanguage(xhr);
                     return {
@@ -250,13 +263,14 @@
         if (params.url) {
             $(".input-wrap input").val(params.url);
 
-            if (!getBaseURL() && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
+            if ($.isEmptyObject(getServer()) && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
                 message.text('Unknown URL origin. Consider adding your base URL to the known-servers.js file.');
                 return;
             }
             else {
                 message.text('Loading...');
-                fetchURL(params.url).then(function(result, code, xhr) {
+                var server = getServer();
+                fetchURL(server, params.url).then(function(result, code, xhr) {
                     createEditor(container, xhr, function() { message.remove(); });
                 }, function(xhr) {
                     if (xhr.responseJSON || xhr.responseXML) {
