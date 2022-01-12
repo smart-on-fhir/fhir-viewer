@@ -22,6 +22,7 @@ window.KNOWN_SERVERS = [
     /https?\:\/\/smart-launcher(-staging)?\.herokuapp\.com\/.*?\/fhir/,
     /https?\:\/\/fhir-.*?\.herokuapp\.com\/fhir/,
     /https?\:\/\/50\.17\.144\.86\:18\d\d\d/,
+    /https?\:\/\/.*?\.softservetest\.com\/patient-profile\/api\/FHIR\/R4/,
     "http://fhirtest.uhn.ca/baseDstu3",
     "http://34.195.196.20:9074/smartstu3",
     "http://52.90.126.238:8080/fhir/baseDstu3",
