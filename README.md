@@ -18,8 +18,8 @@ their specific response headers that will typically force the browser to downloa
 ## Examples
 - [DSTU3 Sandbox conformance statement (big response)](http://docs.smarthealthit.org/fhir-viewer/index.html?url=https%3A%2F%2Fr3.smarthealthit.org%2Fmetadata)
 - [Patient encounters with references preview](http://docs.smarthealthit.org/fhir-viewer/index.html?url=https%3A%2F%2Fr3.smarthealthit.org%2FEncounter%3Fpatient%3Dsmart-1291938)
-- [Patient encounters with references preview (dark theme)](http://docs.smarthealthit.org/fhir-viewer/index.html?dark=&url=https%3A%2F%2Fr3.smarthealthit.org%2FEncounter%3Fpatient%3Dsmart-1291938)
-- [Patient encounters with references preview (dark theme and XML format)](http://docs.smarthealthit.org/fhir-viewer/index.html?dark=&url=https%3A%2F%2Fr3.smarthealthit.org%2FEncounter%3Fpatient%3Dsmart-1291938%26_format%3Dxml)
+- [Patient encounters with references preview (dark theme)](http://docs.smarthealthit.org/fhir-viewer/index.html?dark=1&url=https%3A%2F%2Fr3.smarthealthit.org%2FEncounter%3Fpatient%3Dsmart-1291938)
+- [Patient encounters with references preview (dark theme and XML format)](http://docs.smarthealthit.org/fhir-viewer/index.html?dark=1&url=https%3A%2F%2Fr3.smarthealthit.org%2FEncounter%3Fpatient%3Dsmart-1291938%26_format%3Dxml)
 
 ## Usage
 
