@@ -6,6 +6,36 @@
     var windowUrlObject   = new URL(location.href);
     var fhirUrlString     = windowUrlObject.searchParams.get("url");
     var fhirUrlObject     = fhirUrlString ? new URL(fhirUrlString) : undefined;
+    var RESOURCES = [
+        "Account", "ActivityDefinition", "AdverseEvent", "AllergyIntolerance", "Appointment", "AppointmentResponse", 
+        "AuditEvent", "Basic", "Binary", "BiologicallyDerivedProduct", "BodyStructure", "Bundle", "CapabilityStatement", 
+        "CarePlan", "CareTeam", "ChargeItem", "ChargeItemDefinition", "Claim", "ClaimResponse", "ClinicalImpression", 
+        "CodeSystem", "Communication", "CommunicationRequest", "CompartmentDefinition", "Composition", "ConceptMap", 
+        "Condition", "Consent", "Contract", "Coverage", "CoverageEligibilityRequest", "CoverageEligibilityResponse", 
+        "DetectedIssue", "Device", "DeviceDefinition", "DeviceMetric", "DeviceRequest", "DeviceUseStatement", 
+        "DiagnosticReport", "DocumentManifest", "DocumentReference", "DomainResource", "EffectEvidenceSynthesis", 
+        "Encounter", "Endpoint", "EnrollmentRequest", "EnrollmentResponse", "EpisodeOfCare", "EventDefinition", 
+        "Evidence", "EvidenceVariable", "ExampleScenario", "ExplanationOfBenefit", "FamilyMemberHistory", "Flag", 
+        "Goal", "GraphDefinition", "Group", "GuidanceResponse", "HealthcareService", "ImagingStudy", "Immunization", 
+        "ImmunizationEvaluation", "ImmunizationRecommendation", "ImplementationGuide", "InsurancePlan", 
+        "Invoice", "Library", "Linkage", "List", "Location", "Measure", "MeasureReport", "Media", "Medication", 
+        "MedicationAdministration", "MedicationDispense", "MedicationKnowledge", "MedicationRequest", 
+        "MedicationStatement", "MedicinalProduct", "MedicinalProductAuthorization", "MedicinalProductContraindication", 
+        "MedicinalProductIndication", "MedicinalProductIngredient", "MedicinalProductInteraction", 
+        "MedicinalProductManufactured", "MedicinalProductPackaged", "MedicinalProductPharmaceutical", 
+        "MedicinalProductUndesirableEffect", "MessageDefinition", "MessageHeader", "MolecularSequence", 
+        "NamingSystem", "NutritionOrder", "Observation", "ObservationDefinition", "OperationDefinition", 
+        "OperationOutcome", "Organization", "OrganizationAffiliation", "Parameters", "Patient", "PaymentNotice", 
+        "PaymentReconciliation", "Person", "PlanDefinition", "Practitioner", "PractitionerRole", "Procedure", 
+        "Provenance", "Questionnaire", "QuestionnaireResponse", "RelatedPerson", "RequestGroup", "ResearchDefinition", 
+        "ResearchElementDefinition", "ResearchStudy", "ResearchSubject", "Resource", "RiskAssessment", "Schedule", 
+        "SearchParameter", "ServiceRequest", "Slot", "Specimen", "SpecimenDefinition", "StructureDefinition", 
+        "StructureMap", "Subscription", "Substance", "SubstanceNucleicAcid", "SubstancePolymer", "SubstanceProtein", 
+        "SubstanceReferenceInformation", "SubstanceSourceMaterial", "SubstanceSpecification", "SupplyDelivery", 
+        "SupplyRequest", "Task", "TerminologyCapabilities", "TestReport", "TestScript", "ValueSet", "VerificationResult", 
+        "VisionPrescription"
+    ];
+    var FHIR_PATH = new RegExp("(metadata|" + RESOURCES.join("|") + ")(/([^/]+)?)?$");
 
     /**
      * Uses the jQuery Ajax to fetch the given URL but does not even parse it
@@ -49,6 +79,15 @@
         return "text";
     }
 
+    function getFhirBaseUrl() {
+        if (!fhirUrlObject) {
+            return undefined
+        }
+        const url = new URL(fhirUrlObject)
+        url.pathname = url.pathname.replace(FHIR_PATH, "")
+        return url
+    }
+
     /**
      * Given a current language creates and returns an object that has two
      * provider methods - one for the mouse-over references preview widget
@@ -62,7 +101,7 @@
                 var strRe = String(re);
                 strRe = strRe.substring(1, strRe.length - 1); // Remove the regex slashes
                 return model.findMatches(strRe, false, true, true, false, true).map(function(res) {
-                    var url = new URL(res.matches[1], fhirUrlObject)
+                    var url = new URL(res.matches[1], getFhirBaseUrl())
                     if (lang == "json") {
                         url.searchParams.set("_format", "json")
                     }
@@ -102,7 +141,7 @@
                     return null;
                 }
 
-                var url = new URL(match[1], fhirUrlObject)
+                var url = new URL(match[1], getFhirBaseUrl())
                 if (lang == "json") {
                     url.searchParams.set("_format", "json")
                 }
