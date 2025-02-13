@@ -62,7 +62,7 @@
                 var strRe = String(re);
                 strRe = strRe.substring(1, strRe.length - 1); // Remove the regex slashes
                 return model.findMatches(strRe, false, true, true, false, true).map(function(res) {
-                    var url = new URL(res.matches[1], fhirUrlObject?.origin)
+                    var url = new URL(res.matches[1], fhirUrlObject)
                     if (lang == "json") {
                         url.searchParams.set("_format", "json")
                     }
@@ -102,7 +102,7 @@
                     return null;
                 }
 
-                var url = new URL(match[1], fhirUrlObject?.origin)
+                var url = new URL(match[1], fhirUrlObject)
                 if (lang == "json") {
                     url.searchParams.set("_format", "json")
                 }
