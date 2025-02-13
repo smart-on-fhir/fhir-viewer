@@ -1,75 +1,11 @@
-/* global KNOWN_SERVERS */
+/* global monaco, jQuery */
 (function(NS, $) {
 
     var RE_JSON_REFERENCE = /\s*"reference"\s*:\s*"([^"]*)"\s*?,?$/;
     var RE_XML_REFERENCE  = /\s*<reference\s+value\s*=\s*"([^"]*)"\s*\/>s*?$/;
-
-    // Parse whatever is passed to the app as query string params
-    var params = parseQueryString(location.search);
-
-    /**
-     * If the app was loaded with an "url" query parameter this function will
-     * test if it begins with any of the urls defined in KNOWN_SERVERS. The
-     * first match found is returned. Otherwise an empty string is returned.
-     * @returns {String} Might be empty!
-     */
-    function getBaseURL() {
-        var url = "";
-        if (params.url) {
-            KNOWN_SERVERS.some(function(base) {
-                var index, length;
-
-                if (base instanceof RegExp) {
-                    var match = params.url.match(base);
-                    if (match && match[0]) {
-                        index = match.index;
-                        length = match[0].length;
-                    }
-                }
-                else {
-                    index = params.url.indexOf(base);
-                    length = base.length;
-                }
-
-                if (index === 0 && length) {
-                    url = params.url.substring(0, length);
-                    return true;
-                }
-            });
-        }
-        return url.replace(/\/$/, "");
-    }
-
-    /**
-     * Parses the query string portion of the given string. If the string
-     * contains "?", only the portion after the last "?" character will be
-     * parsed. Otherwise the entire string will be parsed. If certain parameter
-     * is found more than once the value in the returned object will be an
-     * array.
-     * @param {String} str
-     * @returns {Object} key/value map of parameters
-     */
-    function parseQueryString(str) {
-        var out = {};
-        str = String(str || "").trim().split("?")[1] || "";
-        str.split(/&/).forEach(function(pair) {
-            var tokens = pair.split("=");
-            var key    = decodeURIComponent(tokens[0]);
-            if (key) {
-                var value = decodeURIComponent(tokens[1] || "true");
-                if (out.hasOwnProperty(key)) {
-                    if (!Array.isArray(out[key])) {
-                        out[key] = [out[key]];
-                    }
-                    out[key].push(value);
-                }
-                else {
-                    out[key] = value;
-                }
-            }
-        });
-        return out;
-    }
+    var windowUrlObject   = new URL(location.href);
+    var fhirUrlString     = windowUrlObject.searchParams.get("url");
+    var fhirUrlObject     = fhirUrlString ? new URL(fhirUrlString) : undefined;
 
     /**
      * Uses the jQuery Ajax to fetch the given URL but does not even parse it
@@ -126,16 +62,19 @@
                 var strRe = String(re);
                 strRe = strRe.substring(1, strRe.length - 1); // Remove the regex slashes
                 return model.findMatches(strRe, false, true, true, false, true).map(function(res) {
-                    var url = getBaseURL() + "/" + res.matches[1];
+                    var url = new URL(res.matches[1], fhirUrlObject?.origin)
                     if (lang == "json") {
-                        url += "?_format=json";
+                        url.searchParams.set("_format", "json")
                     }
                     else if (lang == "xml") {
-                        url += "?_format=xml";
+                        url.searchParams.set("_format", "xml")
                     }
 
                     var lineText = model.getValueInRange(res.range);
                     var match = lineText.match(re);
+
+                    var returnUrl = new URL(windowUrlObject)
+                    returnUrl.searchParams.set("url", url.href)
 
                     return {
                         range: {
@@ -144,8 +83,7 @@
                             endColumn      : match[0].indexOf(match[1]) + match[1].length + 1,
                             startColumn    : match[0].indexOf(match[1]) + 1
                         },
-                        url: location.origin + location.pathname + "?url=" +
-                        encodeURI(encodeURIComponent(url)) + (params.dark ? "&dark=1" : "")
+                        url: returnUrl.href
                     };
                 })
             },
@@ -164,14 +102,15 @@
                     return null;
                 }
 
-                var url = getBaseURL() + "/" + match[1];
+                var url = new URL(match[1], fhirUrlObject?.origin)
                 if (lang == "json") {
-                    url += "?_format=json";
+                    url.searchParams.set("_format", "json")
                 }
                 else if (lang == "xml") {
-                    url += "?_format=xml";
+                    url.searchParams.set("_format", "xml")
                 }
-                return fetchURL(url)
+
+                return fetchURL(url.href)
                 .then(function(data, textStatus, xhr) {
                     var _lang = getResponseLanguage(xhr);
                     return {
@@ -191,7 +130,7 @@
 
     /**
      * Creates the Monaco editor
-     * @param {DOMElement} container The editor container element
+     * @param {Element} container The editor container element
      * @param {jQuery.XHR} xhr The loaded ajax request
      * @param {Function} cb Callback to be called when the editor is ready
      * @returns {void}
@@ -217,7 +156,7 @@
                 renderLineHighlight: "all",
                 scrollBeyondLastLine: false,
                 snippetSuggestions: "none",
-                theme: params.dark ? "vs-dark" : "vs",
+                theme: windowUrlObject.searchParams.get("dark") ? "vs-dark" : "vs",
                 wrappingColumn: 3000
             });
 
@@ -244,39 +183,35 @@
         var container = document.getElementById(containerID);
         var message = $('<div class="message"/>').appendTo(container);
 
-        $("body").toggleClass("dark", !!params.dark);
-        $("[name=dark]").prop("disabled", !params.dark);
+        var dark = !!windowUrlObject.searchParams.get("dark")
 
-        if (params.url) {
-            $(".input-wrap input").val(params.url);
+        $("body").toggleClass("dark", dark);
+        $("[name=dark]").prop("disabled", !dark);
 
-            if (!getBaseURL() && !params.url.match(/^https?:\/\/(localhost|127\.0\.0\.1)/)) {
-                message.text('Unknown URL origin. Consider adding your base URL to the known-servers.js file.');
-                return;
-            }
-            else {
-                message.text('Loading...');
-                fetchURL(params.url).then(function(result, code, xhr) {
+        if (fhirUrlString) {
+            $(".input-wrap input").val(fhirUrlString);
+
+            message.text('Loading...');
+            fetchURL(fhirUrlString).then(function(result, code, xhr) {
+                createEditor(container, xhr, function() { message.remove(); });
+            }, function(xhr) {
+                if (xhr.responseJSON || xhr.responseXML) {
                     createEditor(container, xhr, function() { message.remove(); });
-                }, function(xhr) {
-                    if (xhr.responseJSON || xhr.responseXML) {
-                        createEditor(container, xhr, function() { message.remove(); });
+                }
+                else {
+                    var msg = "";
+                    if (xhr.status) {
+                        msg += xhr.status + " ";
                     }
-                    else {
-                        var msg = "";
-                        if (xhr.status) {
-                            msg += xhr.status + " ";
-                        }
-                        msg += xhr.statusText || "Failed to load URL!"
+                    msg += xhr.statusText || "Failed to load URL!"
 
-                        if (msg == "error") {
-                            msg = "Failed to load URL!";
-                        }
-                        message.text(msg);
-                        // message.text(xhr.responseText || "Failed to load URL!");
+                    if (msg == "error") {
+                        msg = "Failed to load URL!";
                     }
-                });
-            }
+                    message.text(msg);
+                    // message.text(xhr.responseText || "Failed to load URL!");
+                }
+            });
         }
         else {
             message.text('No "url" parameter given!');

@@ -39,7 +39,7 @@ body {
     content    : "FHIR Url";
     position   : absolute;
     left       : -65px;
-    top        : 7px;
+    top        : 5px;
     font-weight: bold;
 }
 
