@@ -20,7 +20,7 @@
   "author": "Vladimir Ignatov",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^4.18.2",
+    "eslint": "^9.20.1",
     "http-server": "^14.1.1"
   }
 }
